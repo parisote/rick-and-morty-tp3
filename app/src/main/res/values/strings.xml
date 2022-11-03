@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">rick-and-morty-tp3</string>
-</resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="input_user">Usuario</string>
+    <string name="input_password">Contraseña</string>
+    <string name="button_login">Ingresar</string>
+    <string name="text_header">Rick and Morty</string>
+    <string name="forgot_password">Olvidates tu Contraseña?</string>
+}</resources>
