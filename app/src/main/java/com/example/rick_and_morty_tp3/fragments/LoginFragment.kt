@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.rick_and_morty_tp3.R
 
@@ -53,16 +54,16 @@ class LoginFragment : Fragment() {
         passwordEditText = view.findViewById(R.id.password_input)
 
         // Establezco un listener para escuchar cualquier click en el boton
-        /*continueButton.setOnClickListener {
+        continueButton.setOnClickListener {
 
             // Navego hacia la home
-            navController.navigate(R.id.action_loginFragment_to_homeFragment)
-                /*LoginFragmentDirections.actionLoginFragmentToHomeFragment(
+            navController.navigate(
+                LoginFragmentDirections.actionLoginFragmentToHomeFragment(
                     userEditText.text.toString(),
                     passwordEditText.text.toString()
                 )
-            )*/
-        }*/
+            )
+        }
     }
 
     companion object {
