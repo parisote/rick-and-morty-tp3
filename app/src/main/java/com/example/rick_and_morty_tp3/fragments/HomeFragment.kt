@@ -8,6 +8,11 @@ import android.view.ViewGroup
 import com.example.rick_and_morty_tp3.R
 import android.util.Log
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.rick_and_morty_tp3.adapter.CharacterAdapter
+import com.example.rick_and_morty_tp3.model.Character
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,13 +45,27 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        title = view.findViewById(R.id.txtHello)
+        // title = view.findViewById(R.id.txtHello)
         // Pongo el nombre del usuario en el titulo.
         // Advertencia: Al momento de mostrar un texto al usuario siempre usar un String resource. Nunca hardcodear de
         // esta manera.
-        title.text = "Hola, ${param1}"
+        // title.text = "Hola, ${param1}"
+
+        // lista de personajes hardcodeada
+        val person = Character("Jorge", "Alive", "https://rickandmortyapi.com/api/character/avatar/21.jpeg")
+        val person1 = Character("Pepe", "Alive", "https://rickandmortyapi.com/api/character/avatar/538.jpeg")
+        val person2 = Character("Mario", "Dead", "https://rickandmortyapi.com/api/character/avatar/823.jpeg")
+
+        val characters = listOf<Character>(person, person1, person2)
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.list_character)
+        val adapter = CharacterAdapter(characters)
+
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        recyclerView.adapter = adapter
     }
 
     companion object {

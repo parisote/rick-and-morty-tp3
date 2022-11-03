@@ -7,4 +7,5 @@
     <string name="button_login">Ingresar</string>
     <string name="text_header">Rick and Morty</string>
     <string name="forgot_password">Olvidates tu Contraseña?</string>
-}</resources>
+    }
+</resources>
