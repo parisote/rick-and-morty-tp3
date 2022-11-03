@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
         val person1 = Character("Pepe", "Alive", "https://rickandmortyapi.com/api/character/avatar/538.jpeg")
         val person2 = Character("Mario", "Dead", "https://rickandmortyapi.com/api/character/avatar/823.jpeg")
 
-        val characters = listOf<Character>(person, person1, person2)
+        val characters = listOf<Character>(person, person1, person2, person, person1, person2)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.list_character)
         val adapter = CharacterAdapter(characters)
