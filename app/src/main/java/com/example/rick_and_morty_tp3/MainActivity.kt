@@ -36,6 +36,11 @@ class MainActivity : AppCompatActivity() {
                 supportActionBar?.hide()
             else{
                 supportActionBar?.show()
+                when (destination.id) {
+                    R.id.homeFragment -> supportActionBar!!.title = getString(R.string.menu_home)
+                    R.id.favoritesFragment -> supportActionBar!!.title = getString(R.string.menu_favourites)
+                    R.id.settingsFragment -> supportActionBar!!.title = getString(R.string.menu_settings)
+                }
             }
         }
     }
