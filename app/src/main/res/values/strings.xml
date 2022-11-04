@@ -7,5 +7,11 @@
     <string name="button_login">Ingresar</string>
     <string name="text_header">Rick and Morty</string>
     <string name="forgot_password">Olvidates tu Contraseña?</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_favourites">Favoritos</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_logout">LogOut</string>
+
     }
 </resources>
