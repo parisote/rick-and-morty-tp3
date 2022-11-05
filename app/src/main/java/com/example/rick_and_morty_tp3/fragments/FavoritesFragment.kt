@@ -7,23 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rick_and_morty_tp3.R
-import com.example.rick_and_morty_tp3.adapter.CharacterAdapter
+import com.example.rick_and_morty_tp3.adapter.CharacterFavAdapter
+import com.example.rick_and_morty_tp3.listener.OnCharacterFavedListener
 import com.example.rick_and_morty_tp3.model.Character
+import com.example.rick_and_morty_tp3.model.CharacterFaved
+import com.example.rick_and_morty_tp3.repository.CharacterFavedRepository
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
  * Use the [FavoritesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FavoritesFragment : Fragment() {
+class FavoritesFragment : Fragment(),OnCharacterFavedListener {
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: CharacterFavAdapter
+    private lateinit var characterFavedRepository: CharacterFavedRepository
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+    /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,24 +45,33 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val person = Character("Jorge", "Alive", "https://rickandmortyapi.com/api/character/avatar/21.jpeg")
-        val person1 = Character("Pepe", "Alive", "https://rickandmortyapi.com/api/character/avatar/538.jpeg")
-        val person2 = Character("Mario", "Dead", "https://rickandmortyapi.com/api/character/avatar/823.jpeg")
-
-        val characters = listOf<Character>(person, person1, person2)
-
-        val recyclerView = view.findViewById<RecyclerView>(R.id.list_character)
-        val adapter = CharacterAdapter(characters)
-
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
-        recyclerView.adapter = adapter
+        recyclerView = view.findViewById(R.id.list_character)
+        context?.let { characterFavedRepository = CharacterFavedRepository.getInstance(it) }
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        lifecycleScope.launch {
+            adapter = CharacterFavAdapter(characterFavedRepository.getAllCharacterFaved(), this@FavoritesFragment)
+            recyclerView.layoutManager = GridLayoutManager(context, 2)
+            recyclerView.adapter = adapter
+        }
+    }
+
+    override fun onCharacterFaved(character: CharacterFaved, characterPosition: Int) {
+        lifecycleScope.launch {
+            characterFavedRepository.removeCharacterFaved(character)
+            adapter.removeFav(characterPosition)
+        }
+    }
+    /*
     companion object {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
             FavoritesFragment().apply {
             }
-    }
+    }*/
+
 }

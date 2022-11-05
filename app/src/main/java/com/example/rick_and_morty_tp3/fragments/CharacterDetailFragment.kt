@@ -1,15 +1,24 @@
 package com.example.rick_and_morty_tp3.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.room.ColumnInfo
 import com.example.rick_and_morty_tp3.R
+import com.example.rick_and_morty_tp3.model.CharacterFaved
+import com.example.rick_and_morty_tp3.repository.CharacterFavedRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.launch
+import java.lang.Exception
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +34,8 @@ class CharacterDetailFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var characterFavedRepository: CharacterFavedRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +63,30 @@ class CharacterDetailFragment : Fragment() {
         this.setCharacterOrigin()
 
         val fabButton = view.findViewById<FloatingActionButton>(R.id.ch_fab)
+        context?.let { characterFavedRepository = CharacterFavedRepository.getInstance(it) }
 
         fabButton.setOnClickListener {
             //deberia agregar ID de usuario en sharedPreferences
             Toast.makeText(activity, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
+            val characterName = view.findViewById<TextView>(R.id.ch_name).text.toString()
+            val characterStatus = view.findViewById<TextView>(R.id.ch_status).text.toString()
+            val characterEspecie = view.findViewById<TextView>(R.id.ch_especie).text.toString()
+            val characterOrigen = view.findViewById<TextView>(R.id.ch_origen).text.toString()
+            val imgUrl = arguments?.getString("imgUrl").toString()
+            lifecycleScope.launch {
+
+                val newCharacterFaved = CharacterFaved(0,characterName,characterStatus,imgUrl, characterEspecie, characterOrigen, Date())
+                try
+                {
+                    characterFavedRepository.addCharacterFaved(newCharacterFaved)
+                }
+                catch (error: Exception)
+                {
+                    Log.e("ERROR","Error guardando nuevo fav" + error.message.toString())
+                }
+
+                findNavController().navigate(R.id.favoritesFragment)
+            }
         }
 
         Picasso
@@ -63,6 +94,7 @@ class CharacterDetailFragment : Fragment() {
             .load(arguments?.getString("imgUrl"))
             .into(view.findViewById<FloatingActionButton>(R.id.ch_Image))
     }
+
 
     private fun setCharacterStatus() {
         val tvChName = view?.findViewById<TextView>(R.id.ch_status)
