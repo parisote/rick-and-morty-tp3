@@ -1,7 +1,5 @@
 package com.example.rick_and_morty_tp3.fragments
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,16 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.rick_and_morty_tp3.R
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rick_and_morty_tp3.adapter.CharacterAdapter
 import com.example.rick_and_morty_tp3.model.Character
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_login.*
+import androidx.preference.PreferenceManager
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,16 +29,17 @@ private const val ARG_PARAM2 = "username"
  */
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
+    lateinit var v : View
+    lateinit var btnSettings : Button
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var title: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadData()
-
-        button_login.setOnClickListener {
-            saveData()
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -55,8 +53,13 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        title = view.findViewById(R.id.txtHello)
-
+        // title = view.findViewById(R.id.txtHello)
+        // Pongo el nombre del usuario en el titulo.
+        // Advertencia: Al momento de mostrar un texto al usuario siempre usar un String resource. Nunca hardcodear de
+        // esta manera.
+        // title.text = "Hola, ${param1}"
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        Log.d("Test",prefs.getBoolean("sync",false).toString())
         // lista de personajes hardcodeada
         val person = Character("Jorge", "Alive", "https://rickandmortyapi.com/api/character/avatar/21.jpeg")
         val person1 = Character("Pepe", "Alive", "https://rickandmortyapi.com/api/character/avatar/538.jpeg")
@@ -71,25 +74,41 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    private fun saveData() {
-        val insertedText = username_input.text.toString()
-        title.text = "Hola, ${insertedText}"
-        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.apply() {
-            putString("STRING_KEY", insertedText)
+//    override fun onStart() {
+//        super.onStart()
+//
+//        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+//
+//        Log.d("Test",prefs.getBoolean("sync",false).toString())
+////        Log.d("Test",prefs.getString("reply_string",""))
+////        Log.d("Test",prefs.getString("signature_string","default signature"))
+////        Log.d("Test",prefs.getString("edit_text_preference_1","aca no hay nada"))
+//
+//        btnSettings.setOnClickListener {
+//
+//            val action = HomeFragmentDirections.actionHomeFragmentToSettingsActivity()
+//            v.findNavController().navigate(action)
+//
+//        }
+//    }
 
-        }.apply()
-
-        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show()
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment HomeFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            HomeFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
     }
-
-    private fun loadData() {
-        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val savedString = sharedPreferences.getString("STRING_KEY", null)
-
-        title.text = savedString
-
-    }
-
 }
