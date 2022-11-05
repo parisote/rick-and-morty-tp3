@@ -1,15 +1,20 @@
 package com.example.rick_and_morty_tp3.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.example.rick_and_morty_tp3.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,13 +50,14 @@ class CharacterDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //this.setCharacterImage()
         this.setCharacterName()
         this.setCharacterStatus()
         this.setCharacterSpecies()
         this.setCharacterOrigin()
 
         val fabButton = view.findViewById<FloatingActionButton>(R.id.ch_fab)
+
+        this.checkFabEnable(fabButton)
 
         fabButton.setOnClickListener {
             //deberia agregar ID de usuario en sharedPreferences
@@ -61,7 +67,13 @@ class CharacterDetailFragment : Fragment() {
         Picasso
             .get()
             .load(arguments?.getString("imgUrl"))
-            .into(view.findViewById<FloatingActionButton>(R.id.ch_Image))
+            .into(view.findViewById<ImageView>(R.id.ch_Image))
+    }
+
+    private fun checkFabEnable(fabButton: FloatingActionButton) {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val isFabEnable = preferences.getBoolean("enable_fab", false)
+        fabButton.isVisible = isFabEnable
     }
 
     private fun setCharacterStatus() {

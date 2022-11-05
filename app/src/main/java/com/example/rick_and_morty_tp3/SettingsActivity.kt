@@ -2,7 +2,6 @@ package com.example.rick_and_morty_tp3
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 
 class MySettingsActivity : AppCompatActivity() {

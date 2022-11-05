@@ -14,9 +14,12 @@ import com.example.rick_and_morty_tp3.model.Character
 
 import android.util.Log
 import android.widget.Button
+import android.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.preference.PreferenceManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,6 +55,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        this.checkSearchViewEnable(view.findViewById(R.id.searchView2))
         // title = view.findViewById(R.id.txtHello)
         // Pongo el nombre del usuario en el titulo.
         // Advertencia: Al momento de mostrar un texto al usuario siempre usar un String resource. Nunca hardcodear de
@@ -69,6 +73,12 @@ class HomeFragment : Fragment() {
 
         recyclerView.layoutManager = GridLayoutManager(context, 2)
         recyclerView.adapter = adapter
+    }
+
+    private fun checkSearchViewEnable(searchView: SearchView) {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val isSearchViewEnable = preferences.getBoolean("enable_searchbar", false)
+        searchView.isVisible = isSearchViewEnable
     }
 
 //    override fun onStart() {

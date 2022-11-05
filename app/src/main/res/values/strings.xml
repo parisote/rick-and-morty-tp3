@@ -18,4 +18,9 @@
     <string name="ch_detail_species">Especie:</string>
     <string name="ch_detail_orgin">Origen:</string>
 
+    <!-- settings -->
+    <string name="settings_searchbar">Buscador habilitado</string>
+    <string name="settings_fav">Agregar a favoritos habilitado</string>
+    <string name="settings_darkmode">Dark mode</string>
+
 </resources>
