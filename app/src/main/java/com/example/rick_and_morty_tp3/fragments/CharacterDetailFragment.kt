@@ -8,9 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.room.ColumnInfo
+import androidx.preference.PreferenceManager
 import com.example.rick_and_morty_tp3.R
 import com.example.rick_and_morty_tp3.model.CharacterFaved
 import com.example.rick_and_morty_tp3.repository.CharacterFavedRepository
@@ -63,6 +64,8 @@ class CharacterDetailFragment : Fragment() {
         this.setCharacterOrigin()
 
         val fabButton = view.findViewById<FloatingActionButton>(R.id.ch_fab)
+        this.checkFabEnable(fabButton)
+
         context?.let { characterFavedRepository = CharacterFavedRepository.getInstance(it) }
 
         fabButton.setOnClickListener {
@@ -75,14 +78,19 @@ class CharacterDetailFragment : Fragment() {
             val imgUrl = arguments?.getString("imgUrl").toString()
             lifecycleScope.launch {
 
-                val newCharacterFaved = CharacterFaved(0,characterName,characterStatus,imgUrl, characterEspecie, characterOrigen, Date())
-                try
-                {
+                val newCharacterFaved = CharacterFaved(
+                    0,
+                    characterName,
+                    characterStatus,
+                    imgUrl,
+                    characterEspecie,
+                    characterOrigen,
+                    Date()
+                )
+                try {
                     characterFavedRepository.addCharacterFaved(newCharacterFaved)
-                }
-                catch (error: Exception)
-                {
-                    Log.e("ERROR","Error guardando nuevo fav" + error.message.toString())
+                } catch (error: Exception) {
+                    Log.e("ERROR", "Error guardando nuevo fav" + error.message.toString())
                 }
 
                 findNavController().navigate(R.id.favoritesFragment)
@@ -95,6 +103,11 @@ class CharacterDetailFragment : Fragment() {
             .into(view.findViewById<FloatingActionButton>(R.id.ch_Image))
     }
 
+    private fun checkFabEnable(fabButton: FloatingActionButton) {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val isFabEnable = preferences.getBoolean("enable_fab", false)
+        fabButton.isVisible = isFabEnable
+    }
 
     private fun setCharacterStatus() {
         val tvChName = view?.findViewById<TextView>(R.id.ch_status)
