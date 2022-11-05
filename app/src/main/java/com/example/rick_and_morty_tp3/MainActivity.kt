@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.homeFragment -> supportActionBar!!.title = getString(R.string.menu_home)
                     R.id.favoritesFragment -> supportActionBar!!.title = getString(R.string.menu_favourites)
                     R.id.settingsFragment -> supportActionBar!!.title = getString(R.string.menu_settings)
+                    R.id.characterDetailFragment -> supportActionBar!!.title = getString(R.string.menu_characterDetail)
                 }
             }
         }

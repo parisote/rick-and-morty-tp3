@@ -11,6 +11,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_favourites">Favoritos</string>
     <string name="menu_settings">Settings</string>
+    <string name="menu_characterDetail">Detalles del personaje</string>
     <string name="menu_logout">LogOut</string>
 
     <!-- character details -->
