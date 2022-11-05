@@ -42,8 +42,6 @@ class HomeFragment : Fragment() {
     private lateinit var title: TextView
 
     private var adapter: CharacterAdapter? = null
-    private var list: List<Character>? = ArrayList<Character>()
-
     private lateinit var recycler: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,19 +62,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // title = view.findViewById(R.id.txtHello)
-        // Pongo el nombre del usuario en el titulo.
-        // Advertencia: Al momento de mostrar un texto al usuario siempre usar un String resource. Nunca hardcodear de
-        // esta manera.
-        // title.text = "Hola, ${param1}"
-
-        // lista de personajes hardcodeada
-        val person = Character(1,"Jorge", "Alive", "","","", Origin("Earth"),"https://rickandmortyapi.com/api/character/avatar/21.jpeg")
-        val person1 = Character(2,"Pepe", "Alive", "","","", Origin("Earth"), "https://rickandmortyapi.com/api/character/avatar/538.jpeg")
-        val person2 = Character(3,"Mario", "Dead", "","","", Origin("Earth"), "https://rickandmortyapi.com/api/character/avatar/823.jpeg")
-
-        val characters = listOf<Character>(person, person1, person2, person, person1, person2)
-
         recycler = view.findViewById<RecyclerView>(R.id.list_character)
     }
 
@@ -86,6 +71,7 @@ class HomeFragment : Fragment() {
             recycler.layoutManager = GridLayoutManager(context, 2)
             adapter = CharacterRepositoryDataSource().getCharacters()?.results?.let { CharacterAdapter(it) }
             recycler.adapter = adapter
+            adapter?.notifyDataSetChanged()
         }
     }
 
