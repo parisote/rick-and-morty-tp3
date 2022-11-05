@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CharacterDetailFragment">
+    android:orientation="horizontal"
+    android:background="@color/dplight"
+    android:visibility="visible">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/ch_Image"
+        android:layout_width="275dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="50dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/ch_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/ch_Image"
+        app:layout_constraintStart_toStartOf="@id/ch_Image"
+        app:layout_constraintTop_toBottomOf="@id/ch_Image"
+        tools:text="Status" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/ch_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/ch_Image"
+        app:layout_constraintStart_toStartOf="@id/ch_Image"
+        app:layout_constraintTop_toBottomOf="@id/ch_status"
+        tools:text="Character Name" />
+
+    <TextView
+        android:id="@+id/ch_especie"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/ch_detail_species"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/ch_Image"
+        app:layout_constraintStart_toStartOf="@id/ch_Image"
+        app:layout_constraintTop_toBottomOf="@id/ch_name" />
+
+    <TextView
+        android:id="@+id/ch_origen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/ch_detail_orgin"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/ch_Image"
+        app:layout_constraintStart_toStartOf="@id/ch_Image"
+        app:layout_constraintTop_toBottomOf="@id/ch_especie" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ch_fab"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="24dp"
+        android:backgroundTint="@color/cyan_700"
+        android:src="@drawable/ic_favorite"
+        android:tint="#E30000"
+        app:fabCustomSize="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="48dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

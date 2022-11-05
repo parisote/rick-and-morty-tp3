@@ -13,5 +13,8 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_logout">LogOut</string>
 
-    }
+    <!-- character details -->
+    <string name="ch_detail_species">Especie:</string>
+    <string name="ch_detail_orgin">Origen:</string>
+
 </resources>
