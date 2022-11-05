@@ -58,6 +58,7 @@ class CharacterDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //this.setCharacterImage()
+        this.setCharacterId()
         this.setCharacterName()
         this.setCharacterStatus()
         this.setCharacterSpecies()
@@ -71,6 +72,7 @@ class CharacterDetailFragment : Fragment() {
         fabButton.setOnClickListener {
             //deberia agregar ID de usuario en sharedPreferences
             Toast.makeText(activity, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
+            val characterId = Integer.parseInt(view.findViewById<TextView>(R.id.ch_id).text.toString())
             val characterName = view.findViewById<TextView>(R.id.ch_name).text.toString()
             val characterStatus = view.findViewById<TextView>(R.id.ch_status).text.toString()
             val characterEspecie = view.findViewById<TextView>(R.id.ch_especie).text.toString()
@@ -79,14 +81,17 @@ class CharacterDetailFragment : Fragment() {
             lifecycleScope.launch {
 
                 val newCharacterFaved = CharacterFaved(
-                    0,
+                    characterId,
                     characterName,
                     characterStatus,
-                    imgUrl,
                     characterEspecie,
+                    "", //characterType
+                    "", //characterGender
                     characterOrigen,
+                    imgUrl,
                     Date()
                 )
+
                 try {
                     characterFavedRepository.addCharacterFaved(newCharacterFaved)
                 } catch (error: Exception) {
@@ -107,6 +112,13 @@ class CharacterDetailFragment : Fragment() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val isFabEnable = preferences.getBoolean("enable_fab", false)
         fabButton.isVisible = isFabEnable
+    }
+    private fun setCharacterId() {
+        val tvChId = view?.findViewById<TextView>(R.id.ch_id)
+        val value = arguments?.getString("id")
+        if (tvChId != null) {
+            tvChId.text = value
+        }
     }
 
     private fun setCharacterStatus() {

@@ -30,7 +30,7 @@ class CharacterFavAdapter(
         holder.itemView.setOnClickListener(object:View.OnClickListener{
             override fun onClick(v: View) {
                 val b = Bundle()
-                b.putString("imgUrl", characterFaved.imageUrl)
+                b.putString("imgUrl", characterFaved.image)
                 b.putString("name", characterFaved.name)
                 b.putString("status", characterFaved.status)
                 b.putString("species", "human")

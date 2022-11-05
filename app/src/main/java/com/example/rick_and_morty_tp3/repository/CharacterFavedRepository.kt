@@ -24,7 +24,7 @@ class CharacterFavedRepository private constructor(appDatabase: AppDatabase) {
     suspend fun isCharacterFaved(characterFaved: CharacterFaved): Boolean
     {
         var characterSearch = characterDao.loadSingle(characterFaved.id)
-        return characterSearch != null
+        return characterSearch.value != null
     }
 
     suspend fun removeCharacterFaved(characterFaved: CharacterFaved) {
