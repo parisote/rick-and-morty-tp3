@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import com.example.rick_and_morty_tp3.R
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rick_and_morty_tp3.adapter.CharacterAdapter
@@ -51,6 +54,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        this.checkSearchViewEnable(view.findViewById(R.id.searchView2))
         recycler = view.findViewById<RecyclerView>(R.id.list_character)
     }
 
@@ -62,6 +66,12 @@ class HomeFragment : Fragment() {
             recycler.adapter = adapter
             adapter?.notifyDataSetChanged()
         }
+    }
+
+    private fun checkSearchViewEnable(searchView: SearchView) {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val isSearchViewEnable = preferences.getBoolean("enable_searchbar", false)
+        searchView.isVisible = isSearchViewEnable
     }
 
     companion object {
