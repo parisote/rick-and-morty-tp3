@@ -23,7 +23,7 @@ class CharacterAdapter(private val characterList: List<Character>) :
         holder.itemView.setOnClickListener(object:View.OnClickListener{
             override fun onClick(v: View) {
                 val b = Bundle()
-                b.putString("imgUrl", character.imageUrl)
+                b.putString("imgUrl", character.image)
                 b.putString("name", character.name)
                 b.putString("status", character.status)
                 b.putString("species", "human")

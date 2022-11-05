@@ -7,19 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.rick_and_morty_tp3.R
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rick_and_morty_tp3.adapter.CharacterAdapter
-import com.example.rick_and_morty_tp3.model.Character
+import com.example.rick_and_morty_tp3.repository.CharacterRepositoryDataSource
+import kotlinx.coroutines.launch
 
-import android.util.Log
-import android.widget.Button
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.preference.PreferenceManager
 
 // TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "password"
 private const val ARG_PARAM2 = "username"
 
@@ -33,6 +29,9 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var title: TextView
+
+    private var adapter: CharacterAdapter? = null
+    private lateinit var recycler: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,42 +51,18 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // title = view.findViewById(R.id.txtHello)
-        // Pongo el nombre del usuario en el titulo.
-        // Advertencia: Al momento de mostrar un texto al usuario siempre usar un String resource. Nunca hardcodear de
-        // esta manera.
-        // title.text = "Hola, ${param1}"
-        // lista de personajes hardcodeada
-        val person = Character("Jorge", "Alive", "https://rickandmortyapi.com/api/character/avatar/21.jpeg")
-        val person1 = Character("Pepe", "Alive", "https://rickandmortyapi.com/api/character/avatar/538.jpeg")
-        val person2 = Character("Mario", "Dead", "https://rickandmortyapi.com/api/character/avatar/823.jpeg")
-
-        val characters = listOf<Character>(person, person1, person2, person, person1, person2)
-
-        val recyclerView = view.findViewById<RecyclerView>(R.id.list_character)
-        val adapter = CharacterAdapter(characters)
-
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
-        recyclerView.adapter = adapter
+        recycler = view.findViewById<RecyclerView>(R.id.list_character)
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//
-//        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-//
-//        Log.d("Test",prefs.getBoolean("sync",false).toString())
-////        Log.d("Test",prefs.getString("reply_string",""))
-////        Log.d("Test",prefs.getString("signature_string","default signature"))
-////        Log.d("Test",prefs.getString("edit_text_preference_1","aca no hay nada"))
-//
-//        btnSettings.setOnClickListener {
-//
-//            val action = HomeFragmentDirections.actionHomeFragmentToSettingsActivity()
-//            v.findNavController().navigate(action)
-//
-//        }
-//    }
+    override fun onStart() {
+        super.onStart()
+        lifecycleScope.launch{
+            recycler.layoutManager = GridLayoutManager(context, 2)
+            adapter = CharacterRepositoryDataSource().getCharacters()?.results?.let { CharacterAdapter(it) }
+            recycler.adapter = adapter
+            adapter?.notifyDataSetChanged()
+        }
+    }
 
     companion object {
         /**
