@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        this.checkSearchViewEnable(view.findViewById(R.id.searchView2))
+        this.checkSearchViewEnable(view.findViewById(R.id.searchView))
         recycler = view.findViewById<RecyclerView>(R.id.list_character)
     }
 
@@ -65,6 +65,20 @@ class HomeFragment : Fragment() {
             adapter = CharacterRepositoryDataSource().getCharacters()?.results?.let { CharacterAdapter(it) }
             recycler.adapter = adapter
             adapter?.notifyDataSetChanged()
+        }
+
+        val search = view?.findViewById<SearchView>(R.id.searchView)
+        if (search != null) {
+            search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    System.out.println(p0)
+                    return true
+                }
+            })
         }
     }
 

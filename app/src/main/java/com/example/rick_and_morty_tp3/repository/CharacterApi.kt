@@ -13,5 +13,5 @@ interface CharacterApi {
     suspend fun getCharacters() : CharacterList
 
     @GET("character")
-    suspend fun getCharactersById() : CharacterList
+    suspend fun getCharactersByName(@Query("name") name:String) : CharacterList
 }
