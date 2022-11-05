@@ -26,7 +26,7 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_characterDetailFragment"
+            android:id="@+id/action_character_to_characterDetailFragment"
             app:destination="@id/characterDetailFragment" />
         <argument
             android:name="password"
@@ -34,11 +34,14 @@
         <argument
             android:name="username"
             app:argType="string" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsActivity"
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.rick_and_morty_tp3.fragments.SettingsFragment"
+        android:name="com.example.rick_and_morty_tp3.MySettingsActivity$SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
 
@@ -50,11 +53,33 @@
         <action
             android:id="@+id/action_characterDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="imgUrl"
+            app:argType="string" />
+        <argument
+            android:name="status"
+            app:argType="string" />
+        <argument
+            android:name="species"
+            app:argType="string" />
+        <argument
+            android:name="origin"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.rick_and_morty_tp3.fragments.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_character_to_characterDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+    </fragment>
 </navigation>

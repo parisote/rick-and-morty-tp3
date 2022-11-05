@@ -6,27 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.rick_and_morty_tp3.R
-import android.util.Log
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rick_and_morty_tp3.adapter.CharacterAdapter
-import com.example.rick_and_morty_tp3.model.Character
-import com.example.rick_and_morty_tp3.model.CharacterList
-import com.example.rick_and_morty_tp3.model.Origin
-import com.example.rick_and_morty_tp3.repository.CharacterApi
 import com.example.rick_and_morty_tp3.repository.CharacterRepositoryDataSource
-import com.example.rick_and_morty_tp3.repository.RetrofitHelper
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 // TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "password"
 private const val ARG_PARAM2 = "username"
 
