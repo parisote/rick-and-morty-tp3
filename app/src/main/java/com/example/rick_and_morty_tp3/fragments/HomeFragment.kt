@@ -29,8 +29,6 @@ private const val ARG_PARAM2 = "username"
  */
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    lateinit var v : View
-    lateinit var btnSettings : Button
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var title: TextView
@@ -58,8 +56,6 @@ class HomeFragment : Fragment() {
         // Advertencia: Al momento de mostrar un texto al usuario siempre usar un String resource. Nunca hardcodear de
         // esta manera.
         // title.text = "Hola, ${param1}"
-        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        Log.d("Test",prefs.getBoolean("sync",false).toString())
         // lista de personajes hardcodeada
         val person = Character("Jorge", "Alive", "https://rickandmortyapi.com/api/character/avatar/21.jpeg")
         val person1 = Character("Pepe", "Alive", "https://rickandmortyapi.com/api/character/avatar/538.jpeg")

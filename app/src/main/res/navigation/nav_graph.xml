@@ -39,11 +39,6 @@
             app:destination="@id/settingsFragment" />
     </fragment>
 
-    <activity
-        android:id="@+id/settingsActivity"
-        android:name="com.example.rick_and_morty_tp3.MySettingsActivity"
-        android:label="SettingsActivity" />
-
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.rick_and_morty_tp3.MySettingsActivity$SettingsFragment"
