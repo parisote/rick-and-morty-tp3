@@ -28,7 +28,7 @@ class CharacterAdapter(private val characterList: List<Character>) :
                 b.putString("status", character.status)
                 b.putString("species", "human")
                 b.putString("origin", "earth")
-                b.putInt("id", 1)
+                b.putString("id", character.id.toString())
                 v.findNavController().navigate(R.id.action_character_to_characterDetailFragment, b)
             }
         }

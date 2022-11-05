@@ -18,6 +18,6 @@ class CharacterFavedViewHolder(characterView: View) : RecyclerView.ViewHolder(ch
         //set id
         nameText.text = ch.name
         statusText.text = ch.status
-        Glide.with(imageView.context).load(ch.imageUrl).override(500,500).into(imageView)
+        Glide.with(imageView.context).load(ch.image).override(500,500).into(imageView)
     }
 }
