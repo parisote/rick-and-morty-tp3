@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import com.example.rick_and_morty_tp3.R
 import android.util.Log
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rick_and_morty_tp3.adapter.CharacterAdapter
 import com.example.rick_and_morty_tp3.model.Character
 import com.example.rick_and_morty_tp3.model.CharacterList
+import com.example.rick_and_morty_tp3.model.Origin
+import com.example.rick_and_morty_tp3.repository.CharacterApi
 import com.example.rick_and_morty_tp3.repository.CharacterRepositoryDataSource
+import com.example.rick_and_morty_tp3.repository.RetrofitHelper
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -39,6 +43,8 @@ class HomeFragment : Fragment() {
 
     private var adapter: CharacterAdapter? = null
     private var list: List<Character>? = ArrayList<Character>()
+
+    private lateinit var recycler: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,18 +71,22 @@ class HomeFragment : Fragment() {
         // title.text = "Hola, ${param1}"
 
         // lista de personajes hardcodeada
-        val person = Character("Jorge", "Alive", "https://rickandmortyapi.com/api/character/avatar/21.jpeg")
-        val person1 = Character("Pepe", "Alive", "https://rickandmortyapi.com/api/character/avatar/538.jpeg")
-        val person2 = Character("Mario", "Dead", "https://rickandmortyapi.com/api/character/avatar/823.jpeg")
+        val person = Character(1,"Jorge", "Alive", "","","", Origin("Earth"),"https://rickandmortyapi.com/api/character/avatar/21.jpeg")
+        val person1 = Character(2,"Pepe", "Alive", "","","", Origin("Earth"), "https://rickandmortyapi.com/api/character/avatar/538.jpeg")
+        val person2 = Character(3,"Mario", "Dead", "","","", Origin("Earth"), "https://rickandmortyapi.com/api/character/avatar/823.jpeg")
 
         val characters = listOf<Character>(person, person1, person2, person, person1, person2)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.list_character)
+        recycler = view.findViewById<RecyclerView>(R.id.list_character)
+    }
 
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
-        list = CharacterRepositoryDataSource().characters.value?.results
-        adapter = list?.let { CharacterAdapter(it) }
-        recyclerView.adapter = adapter
+    override fun onStart() {
+        super.onStart()
+        lifecycleScope.launch{
+            recycler.layoutManager = GridLayoutManager(context, 2)
+            adapter = CharacterRepositoryDataSource().getCharacters()?.results?.let { CharacterAdapter(it) }
+            recycler.adapter = adapter
+        }
     }
 
     companion object {

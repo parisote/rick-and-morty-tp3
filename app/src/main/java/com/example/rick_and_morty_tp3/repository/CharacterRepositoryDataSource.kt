@@ -9,25 +9,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CharacterRepositoryDataSource : ViewModel() {
+class CharacterRepositoryDataSource  {
     val api = RetrofitHelper.getInstance().create(CharacterApi::class.java)
 
-    private val _characters = MutableLiveData<CharacterList>()
-
-    val characters: LiveData<CharacterList> = _characters
-
-    init{
-        getCharacters()
-    }
-
-    fun getCharacters() {
-        viewModelScope.launch{
-            try{
-                _characters.value = api.getCharacters()
-            } catch (e : Exception){
-                System.out.print(e)
-                e.printStackTrace()
-            }
-        }
+    suspend fun getCharacters() :CharacterList {
+        return api.getCharacters()
     }
 }
