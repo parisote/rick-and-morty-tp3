@@ -13,6 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rick_and_morty_tp3.adapter.CharacterAdapter
 import com.example.rick_and_morty_tp3.model.Character
+import com.example.rick_and_morty_tp3.model.CharacterList
+import com.example.rick_and_morty_tp3.repository.CharacterRepositoryDataSource
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +36,9 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var title: TextView
+
+    private var adapter: CharacterAdapter? = null
+    private var list: List<Character>? = ArrayList<Character>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,9 +72,10 @@ class HomeFragment : Fragment() {
         val characters = listOf<Character>(person, person1, person2, person, person1, person2)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.list_character)
-        val adapter = CharacterAdapter(characters)
 
         recyclerView.layoutManager = GridLayoutManager(context, 2)
+        list = CharacterRepositoryDataSource().characters.value?.results
+        adapter = list?.let { CharacterAdapter(it) }
         recyclerView.adapter = adapter
     }
 
