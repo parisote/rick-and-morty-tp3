@@ -40,7 +40,7 @@
             android:layout_marginTop="170dp"
             android:gravity="center_horizontal"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="14sp"
             tools:text="Character Name" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_marginTop="200dp"
             android:gravity="center_horizontal"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="12sp"
             tools:text="Status" />
 
     </androidx.cardview.widget.CardView>
