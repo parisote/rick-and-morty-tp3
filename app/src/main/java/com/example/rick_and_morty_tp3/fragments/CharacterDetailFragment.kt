@@ -1,5 +1,8 @@
 package com.example.rick_and_morty_tp3.fragments
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -55,6 +58,7 @@ class CharacterDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_character_detail, container, false)
     }
 
+    @SuppressLint("CutPasteId")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //this.setCharacterImage()
@@ -66,11 +70,40 @@ class CharacterDetailFragment : Fragment() {
         val fabButton = view.findViewById<FloatingActionButton>(R.id.ch_fab)
         this.checkFabEnable(fabButton)
 
+        val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
+        val isDarkMode = preferences.getBoolean("dark_mode", false)
+
+        val name : TextView = view.findViewById(R.id.ch_name)
+        val species : TextView = view.findViewById(R.id.ch_especie)
+        val origin : TextView = view.findViewById(R.id.ch_origen)
+
+        if (isDarkMode) {
+            name.setTextColor(ContextCompat.getColor(name.context, R.color.white))
+            species.setTextColor(ContextCompat.getColor(species.context, R.color.white))
+            origin.setTextColor(ContextCompat.getColor(origin.context, R.color.white))
+        } else {
+            name.setTextColor(ContextCompat.getColor(name.context, R.color.black))
+            species.setTextColor(ContextCompat.getColor(species.context, R.color.black))
+            origin.setTextColor(ContextCompat.getColor(origin.context, R.color.black))
+        }
+
         context?.let { characterFavedRepository = CharacterFavedRepository.getInstance(it) }
+
+        lifecycleScope.launch {
+            val ch = arguments?.getInt("id")
+                ?.let { characterFavedRepository.isCharacterFavedById(it) }
+
+            if (ch != null) {
+                fabButton.setImageResource(R.drawable.ic_unfav)
+                fabButton.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.purple_500));
+            } else {
+                fabButton.setImageResource(R.drawable.ic_fav)
+                fabButton.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.purple_500));
+            }
+        }
 
         fabButton.setOnClickListener {
             //deberia agregar ID de usuario en sharedPreferences
-            Toast.makeText(activity, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
             //val characterId = Integer.parseInt(view.findViewById<TextView>(R.id.ch_id).text.toString())
             val characterId = arguments?.getInt("id")
             val characterName = view.findViewById<TextView>(R.id.ch_name).text.toString()
@@ -94,7 +127,13 @@ class CharacterDetailFragment : Fragment() {
                         )
                     try
                     {
-                        characterFavedRepository.addCharacterFaved(newCharacterFaved)
+                        val added = characterFavedRepository.addCharacterFaved(newCharacterFaved)
+                        if (added) {
+                            Toast.makeText(activity, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
+                        }
+                        else {
+                            Toast.makeText(activity, "Removido de favoritos", Toast.LENGTH_SHORT).show()
+                        }
                     }
                     catch (error: Exception)
                     {

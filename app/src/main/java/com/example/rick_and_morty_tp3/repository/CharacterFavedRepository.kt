@@ -11,16 +11,18 @@ class CharacterFavedRepository private constructor(appDatabase: AppDatabase) {
 
     private val characterDao: CharacterDao = appDatabase.characterDao()
 
-    suspend fun addCharacterFaved(characterFaved: CharacterFaved) {
+    suspend fun addCharacterFaved(characterFaved: CharacterFaved): Boolean {
         if (!isCharacterFaved(characterFaved))
         {
             Log.i("ERROR", "ENTRO EN insert")
             characterDao.insertCharacterFaved(characterFaved)
+            return true
         }
         else
         {
             Log.i("ERROR", "ENTRO EN DELETE")
             removeCharacterFaved(characterFaved)
+            return false
         }
     }
 
@@ -29,6 +31,12 @@ class CharacterFavedRepository private constructor(appDatabase: AppDatabase) {
         Log.i("ERROR", "BUSCAMOS ID: " + characterFaved.id.toString())
         val characterSearch = characterDao.loadSingle(characterFaved.id)
         return characterSearch != null
+    }
+
+    suspend fun isCharacterFavedById(chId: Int): CharacterFaved
+    {
+        val characterSearch = characterDao.loadSingle(chId)
+        return characterSearch
     }
 
     suspend fun removeCharacterFaved(characterFaved: CharacterFaved) {
