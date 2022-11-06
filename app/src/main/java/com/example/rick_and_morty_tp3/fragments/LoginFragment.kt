@@ -1,5 +1,6 @@
 package com.example.rick_and_morty_tp3.fragments
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -59,6 +60,13 @@ class LoginFragment : Fragment() {
         // Establezco un listener para escuchar cualquier click en el boton
         continueButton.setOnClickListener {
 
+            if(userEditText.text.isEmpty() || passwordEditText.text.isEmpty()){
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Error")
+                builder.setMessage("User or password is empty")
+                builder.show()
+                return@setOnClickListener
+            }
             // Navego hacia la home
             navController.navigate(
                 LoginFragmentDirections.actionLoginFragmentToHomeFragment(
