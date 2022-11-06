@@ -19,5 +19,5 @@ interface CharacterDao {
     suspend fun getAll(): MutableList<CharacterFaved>
 
     @Query("SELECT * FROM CharacterFaved WHERE id=:id ")
-    fun loadSingle(id: Int): LiveData<CharacterFaved>
+    suspend fun loadSingle(id: Int): CharacterFaved
 }

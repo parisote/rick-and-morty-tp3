@@ -35,7 +35,7 @@ class CharacterFavAdapter(
                 b.putString("status", characterFaved.status)
                 b.putString("species", "human")
                 b.putString("origin", "earth")
-                b.putInt("id", 1)
+                b.putInt("id", characterFaved.id)
                 v.findNavController().navigate(R.id.action_character_to_characterDetailFragment, b)
             }
         }
