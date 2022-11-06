@@ -43,8 +43,6 @@ class HomeFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-        System.out.println("GOLA " + UserSession.username)
     }
 
     override fun onCreateView(
