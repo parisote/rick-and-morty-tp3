@@ -1,6 +1,7 @@
 package com.example.rick_and_morty_tp3.repository
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import com.example.rick_and_morty_tp3.database.AppDatabase
 import com.example.rick_and_morty_tp3.database.dao.CharacterDao
@@ -13,18 +14,21 @@ class CharacterFavedRepository private constructor(appDatabase: AppDatabase) {
     suspend fun addCharacterFaved(characterFaved: CharacterFaved) {
         if (!isCharacterFaved(characterFaved))
         {
+            Log.i("ERROR", "ENTRO EN insert")
             characterDao.insertCharacterFaved(characterFaved)
         }
         else
         {
+            Log.i("ERROR", "ENTRO EN DELETE")
             removeCharacterFaved(characterFaved)
         }
     }
 
     suspend fun isCharacterFaved(characterFaved: CharacterFaved): Boolean
     {
-        var characterSearch = characterDao.loadSingle(characterFaved.id)
-        return characterSearch.value != null
+        Log.i("ERROR", "BUSCAMOS ID: " + characterFaved.id.toString())
+        val characterSearch = characterDao.loadSingle(characterFaved.id)
+        return characterSearch != null
     }
 
     suspend fun removeCharacterFaved(characterFaved: CharacterFaved) {

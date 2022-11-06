@@ -12,7 +12,8 @@ import com.example.rick_and_morty_tp3.model.Character
 class CharacterAdapter(private val characterList: List<Character>) :
     RecyclerView.Adapter<CharacterViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder
+    {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_character, parent, false)
         return CharacterViewHolder(view)
     }
@@ -28,7 +29,7 @@ class CharacterAdapter(private val characterList: List<Character>) :
                 b.putString("status", character.status)
                 b.putString("species", "human")
                 b.putString("origin", "earth")
-                b.putString("id", character.id.toString())
+                b.putInt("id", character.id)
                 v.findNavController().navigate(R.id.action_character_to_characterDetailFragment, b)
             }
         }
