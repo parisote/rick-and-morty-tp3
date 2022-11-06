@@ -57,9 +57,7 @@ class CharacterDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //this.setCharacterImage()
-        this.setCharacterId()
         this.setCharacterName()
         this.setCharacterStatus()
         this.setCharacterSpecies()
@@ -73,32 +71,39 @@ class CharacterDetailFragment : Fragment() {
         fabButton.setOnClickListener {
             //deberia agregar ID de usuario en sharedPreferences
             Toast.makeText(activity, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
-            val characterId = Integer.parseInt(view.findViewById<TextView>(R.id.ch_id).text.toString())
+            //val characterId = Integer.parseInt(view.findViewById<TextView>(R.id.ch_id).text.toString())
+            val characterId = arguments?.getInt("id")
             val characterName = view.findViewById<TextView>(R.id.ch_name).text.toString()
             val characterStatus = view.findViewById<TextView>(R.id.ch_status).text.toString()
             val characterEspecie = view.findViewById<TextView>(R.id.ch_especie).text.toString()
             val characterOrigen = view.findViewById<TextView>(R.id.ch_origen).text.toString()
             val imgUrl = arguments?.getString("imgUrl").toString()
             lifecycleScope.launch {
-
-                val newCharacterFaved = CharacterFaved(
-                    characterId,
-                    characterName,
-                    characterStatus,
-                    characterEspecie,
-                    "", //characterType
-                    "", //characterGender
-                    characterOrigen,
-                    imgUrl,
-                    Date()
-                )
-
-                try {
-                    characterFavedRepository.addCharacterFaved(newCharacterFaved)
-                } catch (error: Exception) {
-                    Log.e("ERROR", "Error guardando nuevo fav" + error.message.toString())
+                if (characterId != null)
+                {
+                    val newCharacterFaved = CharacterFaved(
+                            characterId,
+                            characterName,
+                            characterStatus,
+                            characterEspecie,
+                            "", //characterType
+                            "", //characterGender
+                            characterOrigen,
+                            imgUrl,
+                            Date()
+                        )
+                    try
+                    {
+                        characterFavedRepository.addCharacterFaved(newCharacterFaved)
+                    }
+                    catch (error: Exception)
+                    {
+                        Log.e("ERROR", "Error guardando nuevo fav" + error.message.toString())
+                    }
                 }
-
+                else {
+                    Log.e("ERROR", "Error guardando nuevo fav - VINO NULL EL ID")
+                }
                 findNavController().navigate(R.id.favoritesFragment)
             }
         }
@@ -113,14 +118,6 @@ class CharacterDetailFragment : Fragment() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val isFabEnable = preferences.getBoolean("enable_fab", false)
         fabButton.isVisible = isFabEnable
-    }
-
-    private fun setCharacterId() {
-        val tvChId = view?.findViewById<TextView>(R.id.ch_id)
-        val value = arguments?.getString("id")
-        if (tvChId != null) {
-            tvChId.text = value
-        }
     }
 
     private fun setCharacterStatus() {
