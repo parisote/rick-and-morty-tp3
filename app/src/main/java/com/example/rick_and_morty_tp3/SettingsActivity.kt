@@ -26,15 +26,13 @@ class MySettingsActivity : AppCompatActivity() {
             if (preference != null && preference.key == "dark_mode") {
                 val preferences = PreferenceManager.getDefaultSharedPreferences(context)
                 val isDarkMode = preferences.getBoolean("dark_mode", false)
-                if (!isDarkMode){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO); //light
-                } else{
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //night
-                }
+                AppCompatDelegate.setDefaultNightMode(
+                    if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
+                    else AppCompatDelegate.MODE_NIGHT_NO
+                )
             }
             return true
         }
-
 
     }
 }
