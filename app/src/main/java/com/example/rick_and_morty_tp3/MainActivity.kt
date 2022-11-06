@@ -2,11 +2,13 @@ package com.example.rick_and_morty_tp3
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -15,13 +17,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         drawerLayout = findViewById(R.id.drawer_layout_id)
         navigationView = findViewById(R.id.nav_view)
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         setupDrawerLayout()
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val isDarkMode = preferences.getBoolean("dark_mode", false)
+        AppCompatDelegate.setDefaultNightMode(
+            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+        )
+
     }
 
     private fun setupDrawerLayout() {
@@ -34,13 +46,16 @@ class MainActivity : AppCompatActivity() {
             //segun el destino oculto el actionbar
             if (destination.id == R.id.loginFragment)
                 supportActionBar?.hide()
-            else{
+            else {
                 supportActionBar?.show()
                 when (destination.id) {
                     R.id.homeFragment -> supportActionBar!!.title = getString(R.string.menu_home)
-                    R.id.favoritesFragment -> supportActionBar!!.title = getString(R.string.menu_favourites)
-                    R.id.settingsFragment -> supportActionBar!!.title = getString(R.string.menu_settings)
-                    R.id.characterDetailFragment -> supportActionBar!!.title = getString(R.string.menu_characterDetail)
+                    R.id.favoritesFragment -> supportActionBar!!.title =
+                        getString(R.string.menu_favourites)
+                    R.id.settingsFragment -> supportActionBar!!.title =
+                        getString(R.string.menu_settings)
+                    R.id.characterDetailFragment -> supportActionBar!!.title =
+                        getString(R.string.menu_characterDetail)
                 }
             }
         }

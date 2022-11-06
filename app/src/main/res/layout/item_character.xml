@@ -17,7 +17,7 @@
         android:background="@color/purple_700"
         android:foregroundTint="@color/purple_700"
         android:foregroundTintMode="add"
-        app:cardBackgroundColor="@color/dplight"
+        app:cardBackgroundColor="?attr/colorOnBackground"
         app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,8 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="170dp"
             android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textColor="?attr/itemTextColor"
+            android:textSize="14sp"
             tools:text="Character Name" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_marginTop="200dp"
             android:gravity="center_horizontal"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="12sp"
             tools:text="Status" />
 
     </androidx.cardview.widget.CardView>
