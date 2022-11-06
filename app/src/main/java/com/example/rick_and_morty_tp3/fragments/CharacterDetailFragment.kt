@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -113,6 +114,7 @@ class CharacterDetailFragment : Fragment() {
         val isFabEnable = preferences.getBoolean("enable_fab", false)
         fabButton.isVisible = isFabEnable
     }
+
     private fun setCharacterId() {
         val tvChId = view?.findViewById<TextView>(R.id.ch_id)
         val value = arguments?.getString("id")
@@ -126,6 +128,11 @@ class CharacterDetailFragment : Fragment() {
         val value = arguments?.getString("status")
         if (tvChName != null) {
             tvChName.text = value
+            when (tvChName.text) {
+                "Alive" -> tvChName.setTextColor(ContextCompat.getColor(tvChName.context, R.color.green))
+                "Dead" -> tvChName.setTextColor(ContextCompat.getColor(tvChName.context, R.color.red))
+                "unknown" -> tvChName.setTextColor(ContextCompat.getColor(tvChName.context, R.color.grey))
+            }
         }
     }
 

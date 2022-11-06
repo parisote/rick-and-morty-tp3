@@ -22,7 +22,9 @@
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.1752786220871327" />
         <entry key="app/src/main/res/layout/item_character.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_personaje.xml" value="0.359375" />
+        <entry key="app/src/main/res/layout/settings_activity.xml" value="0.15353260869565216" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.29907407407407405" />
+        <entry key="app/src/main/res/xml/user_setting.xml" value="0.17798913043478262" />
       </map>
     </option>
   </component>
