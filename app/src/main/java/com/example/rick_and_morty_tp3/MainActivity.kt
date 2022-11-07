@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.example.rick_and_morty_tp3.model.UserSession
 import com.google.android.material.navigation.NavigationView
+import android.view.MenuItem
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
@@ -21,6 +22,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // calling the action bar
+        var actionBar = getSupportActionBar()
+        // showing the back button in action bar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+        }
         setContentView(R.layout.activity_main)
         drawerLayout = findViewById(R.id.drawer_layout_id)
         navigationView = findViewById(R.id.nav_view)
@@ -36,21 +43,42 @@ class MainActivity : AppCompatActivity() {
         )
 
     }
+    // this event will enable the back
+    // function to the button on press
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.characterDetailFragment -> {
+                finish()
+                return true
+            }
+        }
+        return super.onContextItemSelected(item)
+    }
 
     private fun setupDrawerLayout() {
         val navController = navHostFragment.navController
+
+
         navigationView.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         navController.addOnDestinationChangedListener { _, destination, arguments ->
 
-            supportActionBar?.setHomeAsUpIndicator(R.drawable.hamburguer)
             //segun el destino oculto el actionbar
             if (destination.id == R.id.loginFragment)
                 supportActionBar?.hide()
             else {
                 supportActionBar?.show()
-                if(destination.id == R.id.homeFragment)
+                if(destination.id == R.id.homeFragment){
                     arguments?.getString("username")?.let { UserSession.username = it}
+                    supportActionBar?.setHomeAsUpIndicator(R.drawable.hamburguer)
+                }
+                if (destination.id == R.id.favoritesFragment)
+                    supportActionBar?.setHomeAsUpIndicator(R.drawable.hamburguer)
+                if (destination.id == R.id.characterDetailFragment || destination.id == R.id.settingsFragment){
+                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                }
+
+
                 when (destination.id) {
                     R.id.homeFragment -> supportActionBar!!.title = getString(R.string.menu_home)
                     R.id.favoritesFragment -> supportActionBar!!.title = getString(R.string.menu_favourites)
