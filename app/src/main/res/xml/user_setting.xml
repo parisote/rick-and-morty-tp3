@@ -3,13 +3,13 @@
 
     <SwitchPreference
         android:id="@+id/settings_searchbar"
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:key="enable_searchbar"
         android:title="@string/settings_searchbar" />
 
     <SwitchPreference
         android:id="@+id/settings_fav"
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:key="enable_fab"
         android:title="@string/settings_fav" />
 
