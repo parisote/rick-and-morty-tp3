@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
+import com.example.rick_and_morty_tp3.model.UserSession
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         navigationView.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, arguments ->
 
             supportActionBar?.setHomeAsUpIndicator(R.drawable.hamburguer)
             //segun el destino oculto el actionbar
@@ -48,14 +49,13 @@ class MainActivity : AppCompatActivity() {
                 supportActionBar?.hide()
             else {
                 supportActionBar?.show()
+                if(destination.id == R.id.homeFragment)
+                    arguments?.getString("username")?.let { UserSession.username = it}
                 when (destination.id) {
                     R.id.homeFragment -> supportActionBar!!.title = getString(R.string.menu_home)
-                    R.id.favoritesFragment -> supportActionBar!!.title =
-                        getString(R.string.menu_favourites)
-                    R.id.settingsFragment -> supportActionBar!!.title =
-                        getString(R.string.menu_settings)
-                    R.id.characterDetailFragment -> supportActionBar!!.title =
-                        getString(R.string.menu_characterDetail)
+                    R.id.favoritesFragment -> supportActionBar!!.title = getString(R.string.menu_favourites)
+                    R.id.settingsFragment -> supportActionBar!!.title = getString(R.string.menu_settings)
+                    R.id.characterDetailFragment -> supportActionBar!!.title = getString(R.string.menu_characterDetail)
                 }
             }
         }

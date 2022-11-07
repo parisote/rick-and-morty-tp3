@@ -29,14 +29,14 @@
             android:id="@+id/action_character_to_characterDetailFragment"
             app:destination="@id/characterDetailFragment" />
         <argument
-            android:name="password"
-            app:argType="string" />
-        <argument
             android:name="username"
             app:argType="string" />
         <action
             android:id="@+id/action_homeFragment_to_settingsActivity"
             app:destination="@id/settingsFragment" />
+        <argument
+            android:name="password"
+            app:argType="string" />
     </fragment>
 
     <fragment

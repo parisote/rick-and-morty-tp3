@@ -1,11 +1,13 @@
 package com.example.rick_and_morty_tp3.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,6 +20,7 @@ import com.example.rick_and_morty_tp3.adapter.CharacterFavAdapter
 import com.example.rick_and_morty_tp3.listener.OnCharacterFavedListener
 import com.example.rick_and_morty_tp3.model.Character
 import com.example.rick_and_morty_tp3.model.CharacterFaved
+import com.example.rick_and_morty_tp3.model.UserSession
 import com.example.rick_and_morty_tp3.repository.CharacterFavedRepository
 import kotlinx.coroutines.launch
 
@@ -50,8 +53,14 @@ class FavoritesFragment : Fragment(),OnCharacterFavedListener {
     }
 
 
+    @SuppressLint("StringFormatMatches")
     override fun onStart() {
         super.onStart()
+        val fav_text: String = resources.getString(R.string.favorite_text, UserSession.username)
+        var text_view = view?.findViewById<TextView>(R.id.textView)
+        if (text_view != null) {
+            text_view.text = fav_text
+        }
         lifecycleScope.launch {
             adapter = CharacterFavAdapter(characterFavedRepository.getAllCharacterFaved(), this@FavoritesFragment)
             recyclerView.layoutManager = GridLayoutManager(context, 2)
