@@ -27,8 +27,8 @@ class CharacterAdapter(private val characterList: List<Character>) :
                 b.putString("imgUrl", character.image)
                 b.putString("name", character.name)
                 b.putString("status", character.status)
-                b.putString("species", "human")
-                b.putString("origin", "earth")
+                b.putString("species", character.species)
+                b.putString("origin", character.origin.name)
                 b.putInt("id", character.id)
                 v.findNavController().navigate(R.id.action_character_to_characterDetailFragment, b)
             }

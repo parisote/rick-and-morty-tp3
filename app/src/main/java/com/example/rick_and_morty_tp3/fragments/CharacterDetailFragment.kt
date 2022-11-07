@@ -182,7 +182,7 @@ class CharacterDetailFragment : Fragment() {
         val value = arguments?.getString("species");
         val title = getString(R.string.ch_detail_species)
         if (tvChName != null) {
-            tvChName.text = "$title $value"
+            tvChName.text = "$value"
         }
     }
 
@@ -191,7 +191,7 @@ class CharacterDetailFragment : Fragment() {
         val value = arguments?.getString("origin")
         val title = getString(R.string.ch_detail_orgin)
         if (tvChName != null) {
-            tvChName.text = "$title $value"
+            tvChName.text = "$value"
         }
     }
 
