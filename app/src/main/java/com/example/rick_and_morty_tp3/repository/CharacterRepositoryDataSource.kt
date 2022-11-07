@@ -16,7 +16,7 @@ class CharacterRepositoryDataSource  {
         return api.getCharacters()
     }
 
-    suspend fun getCharactersByName(name:String) :CharacterList {
+    suspend fun getCharactersByName(name:String) : Response<CharacterList> {
         return api.getCharactersByName(name)
     }
 }

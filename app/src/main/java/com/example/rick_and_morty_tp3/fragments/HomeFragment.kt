@@ -1,5 +1,6 @@
 package com.example.rick_and_morty_tp3.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rick_and_morty_tp3.adapter.CharacterAdapter
 import com.example.rick_and_morty_tp3.model.UserSession
 import com.example.rick_and_morty_tp3.repository.CharacterRepositoryDataSource
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
@@ -36,6 +38,8 @@ class HomeFragment : Fragment() {
 
     private var adapter: CharacterAdapter? = null
     private lateinit var recycler: RecyclerView
+
+    private var s: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,14 +76,49 @@ class HomeFragment : Fragment() {
         if (search != null) {
             search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(p0: String?): Boolean {
-                    TODO("Not yet implemented")
+                    if (p0 != null) {
+                        searchCharacter(p0)
+                    }
+                    return true
                 }
 
                 override fun onQueryTextChange(p0: String?): Boolean {
-                    System.out.println(p0)
+                    if (p0 != null) {
+                        searchCharacter(p0)
+                    }
                     return true
                 }
             })
+
+            search.setOnCloseListener(object: SearchView.OnCloseListener{
+                override fun onClose(): Boolean {
+                    getAllCharacters()
+                    return true
+                }
+            })
+        }
+    }
+
+    private fun searchCharacter(s:String){
+        lifecycleScope.launch{
+            var res = CharacterRepositoryDataSource().getCharactersByName(s)
+            if(res.isSuccessful) {
+                adapter = res.body()?.results?.let { CharacterAdapter(it) }
+                recycler.adapter = adapter
+                adapter?.notifyDataSetChanged()
+            } else {
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Error")
+                builder.show()
+            }
+        }
+    }
+
+    private fun getAllCharacters(){
+        lifecycleScope.launch{
+            adapter = CharacterRepositoryDataSource().getCharacters()?.results?.let { CharacterAdapter(it) }
+            recycler.adapter = adapter
+            adapter?.notifyDataSetChanged()
         }
     }
 
