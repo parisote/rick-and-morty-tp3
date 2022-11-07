@@ -76,16 +76,11 @@ class CharacterDetailFragment : Fragment() {
         val name : TextView = view.findViewById(R.id.ch_name)
         val species : TextView = view.findViewById(R.id.ch_especie)
         val origin : TextView = view.findViewById(R.id.ch_origen)
+        var color = if (isDarkMode) R.color.white else R.color.black
 
-        if (isDarkMode) {
-            name.setTextColor(ContextCompat.getColor(name.context, R.color.white))
-            species.setTextColor(ContextCompat.getColor(species.context, R.color.white))
-            origin.setTextColor(ContextCompat.getColor(origin.context, R.color.white))
-        } else {
-            name.setTextColor(ContextCompat.getColor(name.context, R.color.black))
-            species.setTextColor(ContextCompat.getColor(species.context, R.color.black))
-            origin.setTextColor(ContextCompat.getColor(origin.context, R.color.black))
-        }
+        name.setTextColor(ContextCompat.getColor(name.context, color))
+        species.setTextColor(ContextCompat.getColor(species.context, color))
+        origin.setTextColor(ContextCompat.getColor(origin.context, color))
 
         context?.let { characterFavedRepository = CharacterFavedRepository.getInstance(it) }
 
