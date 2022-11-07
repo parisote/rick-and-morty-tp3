@@ -14,6 +14,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rick_and_morty_tp3.adapter.CharacterAdapter
+import com.example.rick_and_morty_tp3.model.UserSession
 import com.example.rick_and_morty_tp3.repository.CharacterRepositoryDataSource
 import kotlinx.coroutines.launch
 
