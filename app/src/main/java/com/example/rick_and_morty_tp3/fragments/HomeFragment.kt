@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import com.example.rick_and_morty_tp3.R
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
@@ -107,9 +108,7 @@ class HomeFragment : Fragment() {
                 recycler.adapter = adapter
                 adapter?.notifyDataSetChanged()
             } else {
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("Error")
-                builder.show()
+                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
             }
         }
     }
