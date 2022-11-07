@@ -9,6 +9,7 @@ import java.util.Date
 data class CharacterFaved
     (
     @PrimaryKey(autoGenerate = false) val id: Int,
+        val userName: String,
         val name: String,
         val status: String,
         val species: String,

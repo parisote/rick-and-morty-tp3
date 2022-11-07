@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.example.rick_and_morty_tp3.R
 import com.example.rick_and_morty_tp3.model.CharacterFaved
+import com.example.rick_and_morty_tp3.model.UserSession
 import com.example.rick_and_morty_tp3.repository.CharacterFavedRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
@@ -111,6 +112,7 @@ class CharacterDetailFragment : Fragment() {
                 {
                     val newCharacterFaved = CharacterFaved(
                             characterId,
+                            UserSession.username.toString(),
                             characterName,
                             characterStatus,
                             characterEspecie,
