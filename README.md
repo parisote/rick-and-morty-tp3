@@ -1,13 +1,13 @@
 # Authors
 
-[@emigoyeneche](https://github.com/emigoyeneche)
+Emiliano Goyeneche [@emigoyeneche](https://github.com/emigoyeneche)
 
-[@aributron](https://github.com/aributron)
+Ariel Butron [@aributron](https://github.com/aributron)
 
-[@harushishi](https://github.com/harushishi)
+Juan Ignacio Martin [@harushishi](https://github.com/harushishi)
 
-[@parisote](https://github.com/parisote)
+Tomas Climente [@parisote](https://github.com/parisote)
 
-[@tomasperez99](https://github.com/tomasperez99)
+Tomas Perez [@tomasperez99](https://github.com/tomasperez99)
 
-[@nicocalezich](https://github.com/nicocalezich)
+Nicolas Calezich [@nicocalezich](https://github.com/nicocalezich)
