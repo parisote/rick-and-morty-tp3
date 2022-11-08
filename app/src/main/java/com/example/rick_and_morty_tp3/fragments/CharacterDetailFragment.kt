@@ -111,6 +111,7 @@ class CharacterDetailFragment : Fragment() {
                 if (characterId != null)
                 {
                     val newCharacterFaved = CharacterFaved(
+                            0,
                             characterId,
                             UserSession.username.toString(),
                             characterName,

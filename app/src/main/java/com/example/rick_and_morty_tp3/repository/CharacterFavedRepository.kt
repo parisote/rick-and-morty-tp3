@@ -40,7 +40,7 @@ class CharacterFavedRepository private constructor(appDatabase: AppDatabase) {
     }
 
     suspend fun removeCharacterFaved(characterFaved: CharacterFaved) {
-        characterDao.delete(characterFaved)
+        characterDao.delete(characterFaved.id)
     }
 
     suspend fun getAllCharacterFaved(): MutableList<CharacterFaved> {
