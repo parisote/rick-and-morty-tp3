@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,6 +51,12 @@ class FavoritesFragment : Fragment(),OnCharacterFavedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.list_character)
+        val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
+        val isDarkMode = preferences.getBoolean("dark_mode", false)
+        val descr : TextView = view.findViewById(R.id.textView)
+        val color = if (isDarkMode) R.color.white else R.color.black
+        descr.setTextColor(ContextCompat.getColor(descr.context, color))
+
         context?.let { characterFavedRepository = CharacterFavedRepository.getInstance(it) }
     }
 

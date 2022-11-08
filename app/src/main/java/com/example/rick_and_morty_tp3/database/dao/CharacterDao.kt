@@ -13,8 +13,8 @@ interface CharacterDao {
     @Insert
     suspend fun insertCharacterFaved(character: CharacterFaved)
 
-    @Delete
-    suspend fun delete(character: CharacterFaved)
+    @Query("DELETE from characterFaved where id=:id  and userName=:userName ")
+    suspend fun delete(id: Int, userName:String = UserSession.username.toString())
 
     @Query("SELECT * FROM characterFaved where userName=:userName ")
     suspend fun getAll(userName: String = UserSession.username.toString()): MutableList<CharacterFaved>

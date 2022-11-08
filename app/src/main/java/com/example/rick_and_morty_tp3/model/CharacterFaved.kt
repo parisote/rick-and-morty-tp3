@@ -8,7 +8,8 @@ import java.util.Date
 @Entity
 data class CharacterFaved
     (
-    @PrimaryKey(autoGenerate = false) val id: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Int,
+        val id: Int,
         val userName: String,
         val name: String,
         val status: String,
