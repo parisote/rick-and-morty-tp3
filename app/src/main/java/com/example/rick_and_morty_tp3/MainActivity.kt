@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
             else {
                 supportActionBar?.show()
                 if(destination.id == R.id.homeFragment){
-                    arguments?.getString("username")?.let { UserSession.username = it}
                     supportActionBar?.setHomeAsUpIndicator(R.drawable.hamburguer)
                 }
                 if (destination.id == R.id.characterDetailFragment ||
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else if (onBackPressedDispatcher.hasEnabledCallbacks()) {
-            return navController.navigateUp()
+            navController.navigateUp()
         } else {
             drawerLayout.openDrawer(GravityCompat.START)
         }

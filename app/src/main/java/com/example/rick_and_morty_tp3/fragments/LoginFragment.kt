@@ -13,6 +13,7 @@ import android.widget.EditText
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.rick_and_morty_tp3.R
+import com.example.rick_and_morty_tp3.model.UserSession
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,6 +69,7 @@ class LoginFragment : Fragment() {
                 return@setOnClickListener
             }
             // Navego hacia la home
+            UserSession.username = userEditText.text.toString()
             navController.navigate(
                 LoginFragmentDirections.actionLoginFragmentToHomeFragment(
                     userEditText.text.toString(),
