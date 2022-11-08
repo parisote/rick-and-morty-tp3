@@ -12,22 +12,15 @@ import androidx.preference.PreferenceManager
 import com.example.rick_and_morty_tp3.model.UserSession
 import com.google.android.material.navigation.NavigationView
 import android.view.MenuItem
+import androidx.navigation.findNavController
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // calling the action bar
-        var actionBar = getSupportActionBar()
-        // showing the back button in action bar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-        }
         setContentView(R.layout.activity_main)
         drawerLayout = findViewById(R.id.drawer_layout_id)
         navigationView = findViewById(R.id.nav_view)
@@ -41,23 +34,10 @@ class MainActivity : AppCompatActivity() {
             if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
             else AppCompatDelegate.MODE_NIGHT_NO
         )
-
-    }
-    // this event will enable the back
-    // function to the button on press
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.characterDetailFragment -> {
-                finish()
-                return true
-            }
-        }
-        return super.onContextItemSelected(item)
     }
 
     private fun setupDrawerLayout() {
         val navController = navHostFragment.navController
-
 
         navigationView.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
@@ -72,12 +52,11 @@ class MainActivity : AppCompatActivity() {
                     arguments?.getString("username")?.let { UserSession.username = it}
                     supportActionBar?.setHomeAsUpIndicator(R.drawable.hamburguer)
                 }
-                if (destination.id == R.id.favoritesFragment)
-                    supportActionBar?.setHomeAsUpIndicator(R.drawable.hamburguer)
-                if (destination.id == R.id.characterDetailFragment || destination.id == R.id.settingsFragment){
+                if (destination.id == R.id.characterDetailFragment ||
+                    destination.id == R.id.settingsFragment ||
+                    destination.id == R.id.favoritesFragment){
                     supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 }
-
 
                 when (destination.id) {
                     R.id.homeFragment -> supportActionBar!!.title = getString(R.string.menu_home)
@@ -90,8 +69,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        val navController = navHostFragment.navController
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
+        } else if (onBackPressedDispatcher.hasEnabledCallbacks()) {
+            return navController.navigateUp()
         } else {
             drawerLayout.openDrawer(GravityCompat.START)
         }
