@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:id="@+id/settings_searchbar"
+        android:defaultValue="false"
+        android:key="enable_searchbar"
+        android:title="@string/settings_searchbar" />
+
+    <SwitchPreference
+        android:id="@+id/settings_fav"
+        android:defaultValue="false"
+        android:key="enable_fab"
+        android:title="@string/settings_fav" />
+
+    <SwitchPreference
+        android:id="@+id/settings_dark_mode"
+        android:defaultValue="false"
+        android:key="dark_mode"
+        android:title="@string/settings_darkmode" />
+
+</PreferenceScreen>

@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">rick-and-morty-tp3</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="input_user">Usuario</string>
+    <string name="input_password">Contraseña</string>
+    <string name="button_login">Ingresar</string>
+    <string name="text_header">Rick and Morty</string>
+    <string name="forgot_password">Olvidaste tu Contraseña?</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_favourites">Favoritos</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_characterDetail">Detalles del personaje</string>
+    <string name="menu_logout">LogOut</string>
+
+    <!-- character details -->
+    <string name="ch_detail_species">Especie:</string>
+    <string name="ch_detail_orgin">Origen:</string>
+
+    <!-- settings -->
+    <string name="settings_searchbar">Buscador habilitado</string>
+    <string name="settings_fav">Agregar a favoritos habilitado</string>
+    <string name="settings_darkmode">Dark mode</string>
+
+    <!-- favorite -->
+    <string name="favorite_text">Hola %1$s, estos son tus personajes favoritos</string>
+
 </resources>

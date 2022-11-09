@@ -4,13 +4,19 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/dpurple_500</item>
+        <item name="itemTextColor">@color/black</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSurface">@color/purple_200</item>
+        <item name="colorOnBackground">@color/dpdark</item>
+        <item name="searchViewStyle">@color/dmgrey</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/dmgrey</item>
+        <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/dmgrey2</item>
+        <item name="android:navigationBarColor">@color/dmgrey2</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>
