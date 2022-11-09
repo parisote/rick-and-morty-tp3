@@ -17,9 +17,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.example.rick_and_morty_tp3.R
+import com.example.rick_and_morty_tp3.adapter.CharacterAdapter
 import com.example.rick_and_morty_tp3.model.CharacterFaved
 import com.example.rick_and_morty_tp3.model.UserSession
 import com.example.rick_and_morty_tp3.repository.CharacterFavedRepository
+import com.example.rick_and_morty_tp3.repository.CharacterRepositoryDataSource
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
@@ -40,6 +42,7 @@ class CharacterDetailFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var adapter: CharacterAdapter? = null
 
     private lateinit var characterFavedRepository: CharacterFavedRepository
 
@@ -128,9 +131,13 @@ class CharacterDetailFragment : Fragment() {
                         val added = characterFavedRepository.addCharacterFaved(newCharacterFaved)
                         if (added) {
                             Toast.makeText(activity, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
+                            fabButton.setImageResource(R.drawable.ic_unfav)
+                            fabButton.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.purple_500));
                         }
                         else {
                             Toast.makeText(activity, "Removido de favoritos", Toast.LENGTH_SHORT).show()
+                            fabButton.setImageResource(R.drawable.ic_fav)
+                            fabButton.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.purple_500));
                         }
                     }
                     catch (error: Exception)
@@ -141,7 +148,6 @@ class CharacterDetailFragment : Fragment() {
                 else {
                     Log.e("ERROR", "Error guardando nuevo fav - VINO NULL EL ID")
                 }
-                findNavController().navigate(R.id.favoritesFragment)
             }
         }
 
